@@ -5,4 +5,8 @@ This projects queries a database of images using a NL query and find the most fi
 ## Flask component
 Flask is used to build a REST API that takes text queries and serves the top image in the database. All images are locally stored or can alternatively be served from another location.
 
-To run the flask container you will also need image features for your dataset precomputed. More instructions on that coming soon..
+## Other files needed
+To run the flask container you will also need image features for your dataset precomputed. 
+The following files/folders are required to run: static/images/, data/img-hash.json
+
+More instructions on that coming soon..
