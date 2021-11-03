@@ -10,3 +10,14 @@ To run the flask container you will also need image features for your dataset pr
 The following files/folders are required to run: static/images/, data/img-hash.json
 
 More instructions on that coming soon..
+
+## Building the container
+
+```
+docker build -f dockerfile -t clip-img-srch:<tag> .
+```
+
+To run
+```
+docker run -p 8000:8000 clip-img-srch:<tag>
+```
