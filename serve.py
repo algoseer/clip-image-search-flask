@@ -49,4 +49,4 @@ if __name__ == "__main__":
     load_image_db("data/img-hash.json")
     logging.info("Database loaded..")
 
-    app.run(host="localhost", port=8000, debug=True)
+    app.run(host="0.0.0.0", port=8000, debug=True)
