@@ -45,9 +45,12 @@ def update_json_payload():
     payload = request.json
     #Upload image uris with the query
     for page in payload["Data"]:
-        t = page["Text"] 
-        top_imgs = get_topK_images(t, K=1)
-        page["MediaImgUris"] = [a[1]  for a in top_imgs]
+        para = page["Text"] 
+        ret_imgs = []
+        for lin in para.splitlines():
+            top_imgs = get_topK_images(lin, K=1)
+            ret_imgs.append(top_imgs[0][1])
+        page["MediaImgUris"] =  ret_imgs
 
     return payload
 
