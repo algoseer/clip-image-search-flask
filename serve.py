@@ -1,6 +1,7 @@
 from flask import Flask, send_file, request
 import clip
 import json
+import os
 import numpy as np
 import logging
 import torch
@@ -8,6 +9,7 @@ import torch
 app = Flask(__name__)
 
 model = None
+rootdir = "static/images/"
 img_feats = [] 
 fnames = []
 
@@ -22,6 +24,20 @@ def load_image_db(path):
         d = json.load(fin)
     img_feats = np.array([a["ftr"] for a in d["hash"]])
     fnames = [a["filename"] for a in d["hash"]]
+
+
+
+'''
+Serve static files given relative paths
+'''
+
+@app.route("/file/<path:path>")
+def serve_image(path):
+    
+    if os.path.exists(rootdir+ path):
+        return send_file(rootdir+path)
+    else:
+        return "File not found", 404
 
 @app.route("/update", methods=['POST'])
 def update_json_payload():
