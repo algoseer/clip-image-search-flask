@@ -24,7 +24,7 @@ with torch.no_grad():
         image = preprocess(Image.open(img)).unsqueeze(0).to(device)
         imf = model.encode_image(image)
 
-        dd = {"filename" : img, "ftr": imf[0].numpy().tolist()}
+        dd = {"filename" : fname, "ftr": imf[0].numpy().tolist()}
         d["hash"].append(dd)
         d["all_files"]=fnames
 
