@@ -1,5 +1,6 @@
 from flask import Flask, send_file, request
 import clip
+import operator
 import json
 import os
 import numpy as np
@@ -61,11 +62,23 @@ def update_json_payload():
     payload = request.json
     #Upload image uris with the query
     for page in payload["Data"]:
-        para = page["Text"] 
-        ret_imgs = []
-        for lin in para.splitlines():
-            top_imgs = get_topK_images(lin, K=1)
-            ret_imgs.append(top_imgs[0][1])
+        phrases = page["phrases"] 
+        kw = page["keywords_all"] 
+
+        top_imgs=[]
+        if phrases:
+            for lin in phrases:
+                img = get_topK_images(lin, K=1)[0]
+                top_imgs.append(img)
+
+        #Generate images for all keywords and keep the one with highest score
+        imgs =[get_topK_images(k)[0] for k in kw]
+        top_imgs.extend(imgs)
+
+        #Find the highest scoring phrase or keyword
+        ret_imgs = max(top_imgs, key = operator.itemgetter(0))
+        ret_imgs = [ret_imgs[1]]
+
         page["MediaImgUris"] =  ret_imgs
 
     return payload
@@ -93,6 +106,7 @@ def query_images():
     top_img = get_topK_images(query)
 
     #Send the top image
+    print(top_img[0][1])
     return send_file("static/images/"+top_img[0][1])
 
 
