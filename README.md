@@ -7,17 +7,22 @@ Flask is used to build a REST API that takes text queries and serves the top ima
 
 ## Other files needed
 To run the flask container you will also need image features for your dataset precomputed. 
-The following files/folders are required to run: static/images/, data/img-hash.json
+The following files/folders are required to run: static/images/, data/img-hash.json ( see below )
 
 More instructions on that coming soon..
 
-## Building the container
+## Running search in the container
 
+1. Download the images to `static/images`
+
+2. Download the precompute image hash to `data/img-hash.json`.
+
+3. Build the container. This will pre-download the model one time so that it is not pulled at start each time.
 ```
 docker build -f dockerfile -t clip-img-srch:<tag> .
 ```
 
-To run
+4. Run the container
 ```
-docker run -p 8000:8000 clip-img-srch:<tag>
+docker run --name clip-img-srch -d -p 8000:8000 clip-img-srch:<tag>
 ```
