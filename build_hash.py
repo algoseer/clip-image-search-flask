@@ -17,9 +17,9 @@ with torch.no_grad():
     #iterate over images since it won't input batch
     for img in sys.stdin:
         img = img.rstrip()
-        img = '/'.join(img.split('/')[-2:])
-        print(img)
-        fnames.append(img)
+        fname = '/'.join(img.split('/')[-2:])
+        print(fname)
+        fnames.append(fname)
 
         image = preprocess(Image.open(img)).unsqueeze(0).to(device)
         imf = model.encode_image(image)
@@ -31,6 +31,6 @@ with torch.no_grad():
         n+=1
         if n%100 ==0:
             print("Saving...")
-            with open("img-hash.json","w") as fout:
+            with open("data/img-hash.json","w") as fout:
                 json.dump(d,fout)
         

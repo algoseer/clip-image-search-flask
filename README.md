@@ -11,6 +11,16 @@ The following files/folders are required to run: static/images/, data/img-hash.j
 
 More instructions on that coming soon..
 
+## Building image hash for search
+
+1. Download the images to `static/images`
+2. Run the script for generating image hash
+Generate features for all \*.jpg files
+```
+find static/images -name *.jpg | python build_hash.py
+```
+3. Verify that the file `data/img-hash.json` was created.
+
 ## Running search in the container
 
 1. Download the images to `static/images`
