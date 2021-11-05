@@ -11,7 +11,6 @@ model, preprocess = clip.load("ViT-B/32", device=device)
 
 fnames = []
 d = {"hash" : []}
-n=0
 with torch.no_grad():
 
     #iterate over images since it won't input batch
@@ -28,9 +27,7 @@ with torch.no_grad():
         d["hash"].append(dd)
         d["all_files"]=fnames
 
-        n+=1
-        if n%100 ==0:
-            print("Saving...")
-            with open("data/img-hash.json","w") as fout:
-                json.dump(d,fout)
+    print("Saving...")
+    with open("data/img-hash.json","w") as fout:
+        json.dump(d,fout)
         
